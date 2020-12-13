@@ -107,6 +107,30 @@ def fixRowOne(A) :
 # This is the first function that you should complete.
 # Follow the instructions inside the function at each comment.
 def fixRowTwo(A) :
+    """ Doctests:
+        - Test that function can reduce row echelon and
+        - Test that function can raise MatrixIsSingular exception
+    >>> m = np.array([
+    ...        [1, 0, 0, 0],
+    ...        [0, 1, 0, 0],
+    ...        [0, 0, 4, 4],
+    ...        [0, 0, 5, 5]])
+    >>> fixRowTwo(m)
+    array([[1, 0, 0, 0],
+           [0, 1, 0, 0],
+           [0, 0, 1, 1],
+           [0, 0, 5, 5]])
+    >>> m = np.array([
+    ...        [1, 0, 0, 0],
+    ...        [0, 1, 1, 3],
+    ...        [0, 4, 4, 4],
+    ...        [0, 0, 0, 5]])
+    >>> fixRowTwo(m)
+    Traceback (most recent call last):
+     ...
+    IdentifyingSpecialMatrices.MatrixIsSingular
+    """
+
     # Insert code below to set the sub-diagonal elements of row two to zero (there are two of them).
     
     # sbraich: Row 2, Column 0: Zero out
