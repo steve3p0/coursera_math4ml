@@ -55,7 +55,7 @@ class TestIdentifyingSpecialMatrices(TestCase):
         #
         # assert (result == expect)
 
-    def test_fix_row_0(self):
+    def test_fixRow0_ReduceRow(self):
         A = np.array([
             [2, 0, 0, 0],
             [0, 3, 0, 0],
@@ -78,16 +78,27 @@ class TestIdentifyingSpecialMatrices(TestCase):
 
         assert (np.array_equal(result, expect_matrix))
 
-    def test_fix_row_1(self):
+    def test_fixRow0_raiseException(self):
         A = np.array([
-            [2, 0, 0, 0],
-            [0, 2, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 1, 3],
+            [0, 0, 4, 4],
+            [0, 0, 0, 5]
+        ], dtype=np.float_)
+
+        assert(np.linalg.det(A) == 0)
+        self.assertRaises(ism.MatrixIsSingular, ism.fixRowZero, A)
+
+    def test_fixRow1_ReduceRow(self):
+        A = np.array([
+            [1, 0, 0, 0],
+            [0, 3, 0, 0],
             [0, 0, 4, 4],
             [0, 0, 5, 5]
         ], dtype=np.float_)
 
         expect_matrix = np.array([
-            [2, 0, 0, 0],
+            [1, 0, 0, 0],
             [0, 1, 0, 0],
             [0, 0, 4, 4],
             [0, 0, 5, 5]
@@ -101,17 +112,28 @@ class TestIdentifyingSpecialMatrices(TestCase):
 
         assert (np.array_equal(result, expect_matrix))
 
-    def test_fix_row_2(self):
+    def test_fixRow1_raiseException(self):
         A = np.array([
-            [2, 0, 0, 0],
-            [0, 3, 0, 0],
+            [1, 0, 0, 0],
+            [1, 0, 1, 3],
+            [0, 0, 4, 4],
+            [0, 0, 0, 5]
+        ], dtype=np.float_)
+
+        assert(np.linalg.det(A) == 0)
+        self.assertRaises(ism.MatrixIsSingular, ism.fixRowOne, A)
+
+    def test_fixRow2_ReduceRow(self):
+        A = np.array([
+            [1, 0, 0, 0],
+            [0, 1, 0, 0],
             [0, 0, 4, 4],
             [0, 0, 5, 5]
         ], dtype=np.float_)
 
         expect_matrix = np.array([
-            [2, 0, 0, 0],
-            [0, 3, 0, 0],
+            [1, 0, 0, 0],
+            [0, 1, 0, 0],
             [0, 0, 1, 1],
             [0, 0, 5, 5]
         ], dtype=np.float_)
@@ -124,30 +146,52 @@ class TestIdentifyingSpecialMatrices(TestCase):
 
         assert (np.array_equal(result, expect_matrix))
 
-    def test_fix_row_3(self):
+    def test_fixRow2_raiseException(self):
+        A = np.array([
+            [1, 0, 0, 0],
+            [0, 1, 1, 3],
+            [0, 4, 4, 4],
+            [0, 0, 0, 5]
+        ], dtype=np.float_)
+
+        assert(np.linalg.det(A) == 0)
+        self.assertRaises(ism.MatrixIsSingular, ism.fixRowTwo, A)
+
+    def test_fixRow3_ReduceRow(self):
 
         A = np.array([
-            [2, 0, 0, 0],
-            [0, 3, 0, 0],
-            [0, 0, 4, 4],
-            [0, 0, 5, 5]
+            [1, 0, 0, 0],
+            [0, 1, 0, 0],
+            [0, 0, 1, 1],
+            [0, 0, 0, 5]
         ], dtype=np.float_)
 
         expect_matrix = np.array([
-            [2, 0, 0, 0],
-            [0, 3, 0, 0],
-            [0, 0, 4, 4],
+            [1, 0, 0, 0],
+            [0, 1, 0, 0],
+            [0, 0, 1, 1],
             [0, 0, 0, 1]
         ], dtype=np.float_)
 
         print(f"A = \n{A}")
-        # print(f"expect_matrix =\n{expect_matrix}")
-        #
-        # result = ism.fixRowThree(A)
-        # print(f"result = \n{result}")
+        print(f"expect_matrix =\n{expect_matrix}")
 
-        self.assertRaises(ism.MatrixIsSingular, ism.fixRowThree(A))
-        #assert (np.array_equal(result, expect_matrix))
+        result = ism.fixRowThree(A)
+        print(f"result = \n{result}")
+
+        assert (np.array_equal(result, expect_matrix))
+
+    def test_fixRow3_raiseException(self):
+
+        A = np.array([
+            [1, 0, 0, 0],
+            [0, 1, 0, 0],
+            [0, 0, 1, 1],
+            [0, 0, 5, 5]
+        ], dtype=np.float_)
+
+        assert(np.linalg.det(A) == 0)
+        self.assertRaises(ism.MatrixIsSingular, ism.fixRowThree, A)
 
     # Invertible Matrices: Not Singular
     @unittest.skip
