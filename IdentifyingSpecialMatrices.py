@@ -109,27 +109,20 @@ def fixRowOne(A) :
 def fixRowTwo(A) :
     # Insert code below to set the sub-diagonal elements of row two to zero (there are two of them).
     
-    # sbraich
+    # sbraich: Row 2, Column 0: Zero out
     A[2] = A[2] - A[2,0] * A[1]
-    # A[2, 0] = 0
-    # A[2, 1] = 0
-    # A[2, 2] = 0
+    # sbraich: Row 2, Column 1: Zero out
+    A[2] = A[2] - A[2,1] * A[1]
     
     # Next we'll test that the diagonal element is not zero.
     if A[2,2] == 0:
         # Insert code below that adds a lower row to row 2.
         
-        # sbraich
-        A[2] = A[2] + A[3]
-        A[2] = A[2] - A[2,1] * A[1]
-        
-    if A[2, 2] == 0:
-        # Now repeat your code which sets the sub-diagonal elements to zero.
-        # sbraich
+        # sbraich: R2 + R3 -> R2
+        # sbraich: R2 - (R2C0 x R1) -> 2
         A[2] = A[2] + A[3]
         A[2] = A[2] - A[2,0] * A[1]
-        
-        
+
     if A[2,2] == 0 :
         raise MatrixIsSingular()
         
@@ -144,33 +137,20 @@ def fixRowTwo(A) :
 # Follow the instructions inside the function at each comment.
 def fixRowThree(A) :
     # Insert code below to set the sub-diagonal elements of row three to zero.
-    
-    # sbraich
-    ####  HERE!!!!!!
-    #A[3] = A[3] - A[3,0] * A[2]
+    # sbraich: Zero out Row 3, Column 0
+    A[3] = A[3] - A[3,0] * A[2]
+    # sbraich: Zero out Row 3, Column 1
+    A[3] = A[3] - A[3,1] * A[2]
+    # sbraich: Zero out Row 3, Column 2:
+    A[3] = A[3] - A[3,2] * A[2]
 
-    # # Next we'll test that the diagonal element is not zero.
-    # if A[3, 3] == 0:
-    #     # Insert code below that adds a lower row to row 3.
-    #
-    #     # sbraich
-    #     A[3] = A[3] + A[0]
-    #     A[2] = A[2] - A[2, 1] * A[1]
-
-
-    # # Complete the if statement to test if the diagonal element is zero.
-    # if A[3,3] == 0:
-    #     A[3] = A[3] - (A[2] * A)
-    # if A[3, 3] == 0:
-    #
-    # if A[3, 3] == 0:
-
+    # Complete the if statement to test if the diagonal element is zero.
+    # sbraich: Check if Row 3 Column 3 is zero
     if A[3,3] == 0:
         raise MatrixIsSingular()
     
     # Transform the row to set the diagonal element to one.
-    
-    # sbraich
+    # sbraich: Divide Row 3 by (Row 3 Column 3)
     A[3] = A[3] / A[3,3]
 
     return A
