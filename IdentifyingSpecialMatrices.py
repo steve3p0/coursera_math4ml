@@ -108,51 +108,46 @@ def fixRowOne(A) :
 # Follow the instructions inside the function at each comment.
 def fixRowTwo(A) :
     """ Doctests:
-        - Test that function can reduce row echelon and
-        - Test that function can raise MatrixIsSingular exception
-    >>> m = np.array([
-    ...        [1, 0, 0, 0],
-    ...        [0, 1, 0, 0],
-    ...        [0, 0, 4, 4],
-    ...        [0, 0, 5, 5]])
-    >>> fixRowTwo(m)
+        - Test 1: Test that function can reduce row echelon and
+        - Test 2: Test that function can raise MatrixIsSingular exception
+    >>> fixRowTwo(np.array([
+    ...    [1, 0, 0, 0],
+    ...    [0, 1, 0, 0],
+    ...    [0, 0, 4, 4],
+    ...    [0, 0, 5, 5]]))
     array([[1, 0, 0, 0],
            [0, 1, 0, 0],
            [0, 0, 1, 1],
            [0, 0, 5, 5]])
-    >>> m = np.array([
-    ...        [1, 0, 0, 0],
-    ...        [0, 1, 1, 3],
-    ...        [0, 4, 4, 4],
-    ...        [0, 0, 0, 5]])
-    >>> fixRowTwo(m)
+    >>> fixRowTwo(np.array([
+    ...    [1, 0, 0, 0],
+    ...    [0, 1, 1, 3],
+    ...    [0, 4, 4, 4],
+    ...    [0, 0, 0, 5]]))
     Traceback (most recent call last):
      ...
     IdentifyingSpecialMatrices.MatrixIsSingular
     """
 
     # Insert code below to set the sub-diagonal elements of row two to zero (there are two of them).
-    
-    # sbraich: Row 2, Column 0: Zero out
+    # sbraich: Zero out first two columns of Row 2
     A[2] = A[2] - A[2,0] * A[1]
-    # sbraich: Row 2, Column 1: Zero out
     A[2] = A[2] - A[2,1] * A[1]
     
     # Next we'll test that the diagonal element is not zero.
     if A[2,2] == 0:
         # Insert code below that adds a lower row to row 2.
-        
-        # sbraich: R2 + R3 -> R2
-        # sbraich: R2 - (R2C0 x R1) -> 2
+        # sbraich: Add Row 3 Vector to Row 2 Vector
         A[2] = A[2] + A[3]
-        A[2] = A[2] - A[2,0] * A[1]
+        # sbraich: Zero out first two columns of Row 2
+        A[2] = A[2] - A[2, 0] * A[1]
+        A[2] = A[2] - A[2, 1] * A[1]
 
     if A[2,2] == 0 :
         raise MatrixIsSingular()
         
     # Finally set the diagonal element to one by dividing the whole row by that element.
-    
-    # sbraich
+    # sbraich: Divide Row 2 Vector by Scalar in Row 2 Column 2
     A[2] = A[2] / A[2,2]
     
     return A
@@ -160,6 +155,28 @@ def fixRowTwo(A) :
 # You should also complete this function
 # Follow the instructions inside the function at each comment.
 def fixRowThree(A) :
+    """ Doctests:
+        - Test that function can reduce row echelon and
+        - Test that function can raise MatrixIsSingular exception
+    >>> fixRowThree(np.array([
+    ...    [1, 0, 0, 0],
+    ...    [0, 1, 0, 0],
+    ...    [0, 0, 1, 1],
+    ...    [0, 0, 0, 5]]))
+    array([[1, 0, 0, 0],
+           [0, 1, 0, 0],
+           [0, 0, 1, 1],
+           [0, 0, 0, 1]])
+    >>> fixRowThree(np.array([
+    ...     [1, 0, 0, 0],
+    ...     [0, 1, 0, 0],
+    ...     [0, 0, 1, 1],
+    ...     [0, 0, 5, 5]]))
+    Traceback (most recent call last):
+     ...
+    IdentifyingSpecialMatrices.MatrixIsSingular
+    """
+
     # Insert code below to set the sub-diagonal elements of row three to zero.
     # sbraich: Zero out Row 3, Column 0
     A[3] = A[3] - A[3,0] * A[2]
@@ -174,7 +191,7 @@ def fixRowThree(A) :
         raise MatrixIsSingular()
     
     # Transform the row to set the diagonal element to one.
-    # sbraich: Divide Row 3 by (Row 3 Column 3)
+    # sbraich: Divide Row 3 Vector by Scalar in Row 3 Column 3
     A[3] = A[3] / A[3,3]
 
     return A
